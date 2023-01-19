@@ -312,9 +312,18 @@ void draw_bottomflat_triangle(ivec3 v0, ivec3 v1, ivec3 v2, int middleisleft) {
 	int end;
 	outp(SC_INDEX, MAP_MASK);
 	for (scanlineY = v0.y; scanlineY <= v1.y; scanlineY++) {
+		if (scanlineY > 200) {break;}
+		if (scanlineY < 0) {
+			curx1 += invslope1;
+			curx2 += invslope2;
+			continue;
+		}
 		i = curx1 * middleisleft + curx2 * (1-middleisleft);
 		end = curx2 * middleisleft + curx1 * (1-middleisleft);
+		if (i < 0) {i = 0;}
+		if (end > 318) {end = 318;}
 		while (i-1 < end) {
+			
 			i++;
 			outp(SC_DATA,  1 << (i&3) );
 			VGA[non_visible_page + (scanlineY<<6)+(scanlineY<<4)+(i>>2)]=0x00;
@@ -333,9 +342,20 @@ void draw_topflat_triangle(ivec3 v0, ivec3 v1, ivec3 v2, int middleisleft) {
 	int i;
 	int end;
 	outp(SC_INDEX, MAP_MASK);
+	
 	for (scanlineY = v2.y; scanlineY > v0.y; scanlineY--) {
+		if (scanlineY > 200) {
+			curx1 -= invslope1;
+			curx2 -= invslope2;
+			continue;
+		}
+		if (scanlineY < 0) {
+			break;
+		}
 		i = curx1 * middleisleft + curx2 * (1-middleisleft);
 		end = curx2 * middleisleft + curx1 * (1-middleisleft);
+		if (i < 0) {i = 0;}
+		if (end > 318) {end = 318;}
 		while (i <= end) {
 			i++;
 			outp(SC_DATA,  1 << (i&3) );
