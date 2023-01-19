@@ -1,0 +1,5 @@
+types.h(57): Warning! W138: No newline at end of file
+types.h(57): Warning! W129: #endif matches #if in different source file 'types.h'
+math2.h(33): Warning! W138: No newline at end of file
+math2.h(33): Warning! W129: #endif matches #if in different source file 'math2.h'
+MATH.C(162): Warning! W138: No newline at end of file
